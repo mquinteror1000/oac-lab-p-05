@@ -1,0 +1,42 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity tb_practica5 is
+end tb_practica5;
+
+architecture test of tb_practica5 is
+    -- Señales internas para conectar con el multiplexor
+    signal tb_pto0  : std_logic := '0';
+    signal tb_pto1  : std_logic := '0';
+    signal tb_sel   : std_logic := '0';
+    signal tb_ptops : std_logic;
+begin
+    -- Instancia de la entidad especificando la arquitectura a probar
+    uut: entity work.practica5(arq_compuertas)
+    port map (
+        pto0  => tb_pto0,
+        pto1  => tb_pto1,
+        sel   => tb_sel,
+        ptops => tb_ptops
+    );
+
+    -- Generación de estímulos (lo que antes dibujabas en el VWF)
+    estimulos: process
+    begin
+        -- Caso 1: sel = '0', la salida (ptops) debe copiar a pto0
+        tb_sel <= '0';
+        tb_pto0 <= '1'; tb_pto1 <= '0';
+        wait for 10 ns;
+        tb_pto0 <= '0'; tb_pto1 <= '1';
+        wait for 10 ns;
+
+        -- Caso 2: sel = '1', la salida (ptops) debe copiar a pto1
+        tb_sel <= '1';
+        tb_pto0 <= '1'; tb_pto1 <= '0';
+        wait for 10 ns;
+        tb_pto0 <= '0'; tb_pto1 <= '1';
+        wait for 10 ns;
+
+        wait; -- Detiene la simulación indefinidamente
+    end process;
+end test;

@@ -1,0 +1,7 @@
+|practica5
+pto0 => ptops.DATAB
+pto1 => ptops.DATAA
+sel => ptops.OUTPUTSELECT
+ptops << ptops.DB_MAX_OUTPUT_PORT_TYPE
+
+
